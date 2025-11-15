@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+ {%load static%}
+<head>
+   <!-- ===== Basic Meta Tags ===== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}AI & Tech Blog - Exploring the Future of AI & Innovation{% endblock %}</title>
+  <meta name="description" content="AI & Tech Blog brings the latest insights, tutorials, and news in Artificial Intelligence, Machine Learning, and future technologies. Stay updated with us!" />
+  <meta name="keywords" content="AI blog, Tech Blog, Artificial Intelligence, Machine Learning, Technology, AI tutorials, ChatGPT, Future tech" />
+  <meta name="author" content="AI & Tech Blog" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- ===== Canonical & Favicon ===== -->
+  <link rel="canonical" href="https://www.yourdomain.com/" />
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+
+  <!-- ===== Open Graph / Facebook ===== -->
+  <meta property="og:title" content="AI & Tech Blog - Exploring the Future of AI & Innovation" />
+  <meta property="og:description" content="Discover insights, tutorials, and the latest trends in AI, Machine Learning, and emerging tech." />
+  <meta property="og:url" content="https://www.yourdomain.com/" />
+  <meta property="og:type" content="website" />
+
+  <!-- ===== Twitter Card ===== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI & Tech Blog - Exploring the Future of AI & Innovation" />
+  <meta name="twitter:description" content="Explore the world of AI, Machine Learning, and future technologies." />
+  
+
+  <!-- ===== Structured Data (JSON-LD) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "AI & Tech Blog",
+    "url": "https://www.yourdomain.com",
+    "description": "Latest news, tutorials, and insights on Artificial Intelligence and Technology.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI & Tech Blog",
+      
+  }
+  </script>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #007bff;
+      --bg-light: #ffffff;
+      --text-light: #222;
+      --bg-dark: #0f0f0f;
+      --text-dark: #f1f1f1;
+      --color-accent: #00bcd4;
+      --color-gray: #999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body {
+      background: var(--bg-light);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      width: 100%;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      transition: all 0.3s ease;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .toggle-btn {
+      cursor: pointer;
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #0056cc;
+    }
+
+    /* ===== MOBILE MENU ICON ===== */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary);
+      background: none;
+      border: none;
+    }
+
+    /* ===== Responsive Navbar ===== */
+    @media (max-width: 900px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(255, 255, 255, 0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 30px;
+        gap: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      nav.active {
+        right: 0;
+        animation: slideIn 0.3s ease forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          right: -100%;
+        }
+        to {
+          right: 0;
+        }
+      }
+
+      nav a {
+        font-size: 1.1rem;
+      }
+
+      .toggle-btn {
+        margin-top: 15px;
+      }
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode header {
+      background: rgba(15, 15, 15, 0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    body.dark-mode nav {
+      background: rgba(20, 20, 20, 0.97);
+    }
+
+    main {
+      flex: 1;
+      padding-top: 100px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 60px 20px 40px;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-logo {
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .footer-desc {
+      font-size: 15px;
+      color: var(--color-gray);
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin: 10px 0;
+    }
+
+    .footer-links a {
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-accent);
+    }
+
+    .footer-links a:hover::after {
+      width: 100%;
+    }
+
+    .footer-social a {
+      color: inherit;
+      margin-right: 15px;
+      font-size: 18px;
+      display: inline-block;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--color-accent);
+      transform: translateY(-3px);
+    }
+
+    .footer-divider {
+      border: none;
+      height: 1px;
+      background: rgba(150, 150, 150, 0.2);
+      margin: 40px 0 20px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 14px;
+      color: var(--color-gray);
+    }
+
+    body.light-mode .footer {
+      background: #f9f9f9;
+      color: #222;
+    }
+
+    body.dark-mode .footer {
+      background: #121212;
+      color: #f1f1f1;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AI & Tech Blog</h1>
+    <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
+    <nav id="navbar">
+      <a href="/">Home</a>
+      <a href="/blogs/">Blogs</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <button id="theme-toggle" class="toggle-btn">🌞 Light</button>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-logo">AI & Tech Blog</h3>
+        <p class="footer-desc">
+          Discover insights, trends, and innovations in Artificial Intelligence,
+          Machine Learning, and emerging technologies.
+        </p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="{% url 'Terms' %}">Terms and Conditions </a></li>
+          <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Follow Us</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/tech.blogs.2025/"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/anurag-baitha/"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.instagram.com/rebuster_/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <p>&copy; 2025 <strong>AI & Tech Blog</strong>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById("theme-toggle");
+    const body = document.body;
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+
+    // Theme toggle
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark-mode");
+      toggleBtn.textContent = "🌙 Dark";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+      if (body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        toggleBtn.textContent = "🌙 Dark";
+      } else {
+        localStorage.setItem("theme", "light");
+        toggleBtn.textContent = "🌞 Light";
+      }
+    });
+
+    // Responsive Navbar toggle
+    menuToggle.addEventListener("click", () => {
+      navbar.classList.toggle("active");
+      const icon = menuToggle.querySelector("i");
+      icon.classList.toggle("fa-bars");
+      icon.classList.toggle("fa-times");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!navbar.contains(e.target) && !menuToggle.contains(e.target)) {
+        navbar.classList.remove("active");
+        const icon = menuToggle.querySelector("i");
+        icon.classList.add("fa-bars");
+        icon.classList.remove("fa-times");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+/* === Custom Admin Styling === */
+
+fieldset.module.aligned {
+  width: 100%;
+}
+
+.ck-editor__editable {
+  min-height: 400px !important;
+  max-height: 800px;
+  background-color: #fff !important;
+  color: #333 !important;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.form-row .ck-editor__editable_inline {
+  width: 100% !important;
+}
+
+.field-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.module h2 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.submit-row input {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  transition: 0.3s ease;
+}
+
+.submit-row input:hover {
+  background-color: #0056b3;
+}
+
+/* Admin list table thumbnail */
+.model-blog .field-thumbnail img {
+    display: block;
+    margin: auto;
+}

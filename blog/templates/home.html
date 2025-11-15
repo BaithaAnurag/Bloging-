@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - AI & Tech Blog{% endblock %}
+
+{% block meta %}
+<meta name="description" content="Stay updated with the latest breakthroughs, tutorials, and trends in Artificial Intelligence, coding, and futuristic technology — written by experts for creators like you.">
+<meta name="keywords" content="AI blog, technology news, machine learning tutorials, coding, ChatGPT, artificial intelligence, tech innovation, AI trends">
+<meta name="robots" content="index, follow">
+<meta name="author" content="AI & Tech Blog Team">
+<link rel="canonical" href="https://yourdomain.com/">
+<meta property="og:title" content="AI & Tech Blog - Explore the Future of Technology">
+<meta property="og:description" content="Your source for AI insights, tutorials, and technology trends. Stay informed with daily updates.">
+<meta property="og:image" content="{% static 'images/og-image.jpg' %}">
+<meta property="og:url" content="https://yourdomain.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI & Tech Blog - Explore the Future of Technology">
+<meta name="twitter:description" content="Explore cutting-edge AI, coding tutorials, and tech trends — built for developers, creators, and enthusiasts.">
+<meta name="twitter:image" content="{% static 'images/og-image.jpg' %}">
+{% endblock %}
+
+{% block content %}
+<style>
+/* ===== GLOBAL RESET ===== */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--bg-color, #ffffff);
+  color: var(--text-color, #111);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 120px 20px 60px;
+  background: var(--hero-bg, radial-gradient(circle at top left, #edf3ff, #ffffff 85%));
+  color: var(--hero-text, #111);
+  overflow: hidden;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay, rgba(255, 255, 255, 0.1));
+  transition: background 0.4s ease;
+}
+
+.hero h1,
+.hero p,
+.hero a {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== DARK MODE COLORS ===== */
+body.dark-mode {
+  --bg-color: #0b1221;
+  --text-color: #eaeaea;
+  --hero-bg: radial-gradient(circle at top left, #0a192f, #1e293b 80%);
+  --hero-text: #ffffff;
+  --hero-overlay: rgba(0, 0, 0, 0.45);
+}
+
+/* ===== HERO TEXT ===== */
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.3;
+  max-width: 850px;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-bottom: 25px;
+  animation: fadeInUp 1.2s ease;
+  color: var(--hero-subtext, #444);
+}
+
+body.dark-mode .hero p {
+  --hero-subtext: #d5d5d5;
+}
+
+.hero a {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--primary, #007bff);
+  color: #fff;
+  padding: 14px 35px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== RECENT BLOGS SECTION ===== */
+.recent-blogs-section {
+  background: var(--section-bg, linear-gradient(180deg, #f8faff, #e9f1ff));
+  color: var(--text-color, #212529);
+  transition: background 0.3s ease, color 0.3s ease;
+  padding: 70px 20px;
+}
+
+body.dark-mode .recent-blogs-section {
+  --section-bg: radial-gradient(circle at top, #0a192f, #1e293b 80%);
+  --text-color: #f1f1f1;
+}
+
+/* Section Title */
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.recent-title {
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  color: inherit;
+}
+
+.recent-title .underline {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
+  border-radius: 5px;
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0% { width: 80px; opacity: 0.7; box-shadow: 0 0 8px #00bfff; }
+  50% { width: 130px; opacity: 1; box-shadow: 0 0 20px #007bff, 0 0 40px #00c6ff; }
+  100% { width: 80px; opacity: 0.7; box-shadow: 0 0 8px #00bfff; }
+}
+
+/* Blog Cards */
+.recent-blogs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-card {
+  border-radius: 12px;
+  background: var(--card-bg, #fff);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .blog-card { --card-bg: #1e1e1e; }
+
+.blog-img-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.blog-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.image-link:hover img { transform: scale(1.08); }
+
+.blog-title {
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.blog-title:hover { color: #007bff; }
+
+.blog-meta {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+  .hero h1 { font-size: 2.4rem; }
+  .hero p { font-size: 1rem; }
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: 90vh; padding: 100px 15px 50px; }
+  .hero h1 { font-size: 2rem; line-height: 1.3; }
+  .hero p { font-size: 0.95rem; }
+}
+
+@media (max-width: 576px) {
+  .hero { padding: 130px 15px 40px; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: 0.9rem; }
+  .recent-title { font-size: 1.6rem; }
+  .recent-title .underline { width: 70px; height: 3px; }
+}
+</style>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <h1>Explore the Future of <span style="color: var(--primary, #007bff);">Artificial Intelligence</span> & Technology</h1>
+  <p>Stay updated with the latest breakthroughs, tutorials, and trends in AI, coding, and futuristic tech innovations — written by experts for creators like you.</p>
+  <a href="/blogs/" aria-label="Explore AI & Tech blogs">Explore Blogs</a>
+</section>
+
+<!-- ADSENSE PLACEMENT (responsive) -->
+<div class="container text-center my-4">
+  <!-- Google AdSense ad placeholder -->
+  <!-- Replace with your real AdSense code after approval -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-xxxxxxxxxxxxxxx"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<!-- RECENT BLOGS SECTION -->
+<section class="recent-blogs-section">
+  <div class="title-wrapper">
+    <h2 class="recent-title fw-bold">Recent Blogs<span class="underline"></span></h2>
+  </div>
+
+  <div class="recent-blogs">
+    {% for blog in recent_blogs %}
+    <article class="card blog-card border-0 shadow-sm" itemscope itemtype="https://schema.org/BlogPosting">
+      <a href="{% url 'blog_detail' blog.slug %}" class="image-link" aria-label="{{ blog.title }}">
+        <div class="blog-img-wrapper">
+          {% if blog.image %}
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'images/default-blog.jpg' %}" alt="Default blog image" loading="lazy">
+          {% endif %}
+        </div>
+      </a>
+      <div class="card-body text-start">
+        <h3 class="fw-semibold mb-1 blog-title" itemprop="headline">
+          <a href="{% url 'blog_detail' blog.slug %}" class="text-decoration-none">{{ blog.title|truncatechars:60 }}</a>
+        </h3>
+        <p class="blog-meta mb-0">
+          <time datetime="{{ blog.created_at|date:'Y-m-d' }}" itemprop="datePublished">
+            {{ blog.created_at|date:"M d, Y" }}
+          </time> • {{ blog.views }} views
+        </p>
+      </div>
+    </article>
+    {% empty %}
+      <p>No recent blogs available.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

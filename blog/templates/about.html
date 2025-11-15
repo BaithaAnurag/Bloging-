@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About Us - AI & Tech Blog{% endblock %}
+
+{% block meta %}
+<meta name="description" content="Learn more about AI & Tech Blog — a platform exploring Artificial Intelligence, programming, and technology trends. Discover our mission, values, and the creator behind this blog.">
+<meta name="keywords" content="About AI Tech Blog, Artificial Intelligence, Technology Blog, Machine Learning, Tech Tutorials">
+<meta name="author" content="Anurag Kumar Baitha">
+<meta property="og:title" content="About Us - AI & Tech Blog">
+<meta property="og:description" content="Discover who we are and what drives AI & Tech Blog to explore the future of technology.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{% static 'images/profile.jpg' %}">
+<meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block content %}
+<style>
+/* ===== About Page Styling (Light & Dark Mode) ===== */
+:root {
+  --accent: #007bff;
+  --accent-alt: #00c6ff;
+  --light-bg: #ffffff;
+  --light-text: #111;
+  --dark-bg: #0f0f0f;
+  --dark-text: #f5f5f5;
+  --muted-light: #555;
+  --muted-dark: #aaa;
+}
+
+body.light-mode {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.about-section {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.about-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInDown 1s ease;
+}
+
+.about-subheading {
+  font-size: 1.1rem;
+  color: var(--muted-light);
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease;
+}
+
+body.dark-mode .about-subheading {
+  color: var(--muted-dark);
+}
+
+.about-content {
+  text-align: left;
+  line-height: 1.7;
+  font-size: 1rem;
+  animation: fadeIn 1.5s ease;
+}
+
+.about-content h3 {
+  margin-top: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.about-content a {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.highlight {
+  font-weight: 600;
+  color: var(--accent-alt);
+}
+
+ul {
+  margin-left: 1.5rem;
+  list-style: disc;
+}
+
+/* ===== Team Section ===== */
+.team-section {
+  margin-top: 4rem;
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+.team-member {
+  display: inline-block;
+  width: 200px;
+  margin: 1rem;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(0, 123, 255, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+body.dark-mode .team-member {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.team-member:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-member img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 0.8rem;
+  object-fit: cover;
+}
+
+.team-member h4 {
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.team-member p {
+  font-size: 0.85rem;
+  color: var(--muted-light);
+}
+
+body.dark-mode .team-member p {
+  color: var(--muted-dark);
+}
+
+/* ===== Stats Section ===== */
+.stats-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 60px;
+  gap: 20px;
+  text-align: center;
+  animation: fadeInUp 1.5s ease;
+}
+
+.stat-box {
+  background: rgba(0, 123, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px 25px;
+  width: 160px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+body.dark-mode .stat-box {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stat-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--muted-light);
+}
+
+body.dark-mode .stat-label {
+  color: var(--muted-dark);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
+@keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+@keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .about-section { padding: 50px 15px; }
+  .about-heading { font-size: 2rem; }
+  .team-member { width: 45%; margin: 0.5rem; }
+  .stat-box { width: 45%; padding: 15px 20px; }
+}
+
+@media (max-width: 480px) {
+  .team-member, .stat-box { width: 90%; }
+  .about-heading { font-size: 1.7rem; }
+}
+</style>
+
+<section class="about-section">
+  <h1 class="about-heading">About AI & Tech Blog</h1>
+  <p class="about-subheading">Exploring the Future — One Innovation at a Time 🚀</p>
+
+  <div class="about-content">
+    <p>
+      Welcome to <span class="highlight">AI & Tech Blog</span> — your trusted source for the latest updates, tutorials, and insights in Artificial Intelligence and Technology.
+      Whether you're passionate about <strong>machine learning</strong>, <strong>coding</strong>, or the <strong>future of automation</strong>, we deliver content that inspires and informs.
+    </p>
+
+    <h3>🌍 Our Mission</h3>
+    <p>
+      Our goal is to bridge the gap between complex technology and everyday learners — simplifying knowledge, fostering innovation, and empowering developers.
+    </p>
+
+    <h3>💡 What We Do</h3>
+    <ul>
+      <li>Publish in-depth AI and tech tutorials.</li>
+      <li>Share breaking technology news and insights.</li>
+      <li>Review AI tools, frameworks, and platforms.</li>
+      <li>Support learners and creators through practical guides.</li>
+    </ul>
+
+    <h3>🤝 Join Our Community</h3>
+    <p>
+      We’re more than a blog — we’re a growing community of innovators, developers, and tech enthusiasts.
+      Reach out via our <a href="{% url 'contact' %}">Contact Page</a> for collaborations, guest posts, or feedback.
+    </p>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <div class="stat-box"><div class="stat-number" data-target="500">0</div><div class="stat-label">Active Readers</div></div>
+    <div class="stat-box"><div class="stat-number" data-target="120">0</div><div class="stat-label">Articles Published</div></div>
+    <div class="stat-box"><div class="stat-number" data-target="5">0</div><div class="stat-label">Years of Passion</div></div>
+    <div class="stat-box"><div class="stat-number" data-target="20">0</div><div class="stat-label">Contributors</div></div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="team-section">
+    <h3>Meet the Creator</h3>
+    <div class="team-member">
+      <img src="{% static 'images/profile.jpg' %}" alt="Anurag Kumar Baitha - Full Stack Developer">
+      <h4>Anurag Kumar Baitha</h4>
+      <p>Full Stack Developer • AI Enthusiast • Tech Blogger</p>
+    </div>
+  </div>
+</section>
+
+<script>
+const counters = document.querySelectorAll('.stat-number');
+const speed = 100;
+
+function animateCounters() {
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const increment = target / speed;
+      if (count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        setTimeout(updateCount, 30);
+      } else {
+        counter.innerText = target + "+";
+      }
+    };
+    updateCount();
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      observer.disconnect();
+    }
+  });
+});
+
+observer.observe(document.querySelector('.stats-section'));
+</script>
+{% endblock %}

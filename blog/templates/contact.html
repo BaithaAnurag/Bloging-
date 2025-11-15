@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us - AI & Tech Blog{% endblock %}
+
+{% block content %}
+<style>
+/* ===== Contact Page Styling (Dark + Light Mode Ready) ===== */
+:root {
+  --accent-color: #00bcd4;
+  --light-bg: #f9f9f9;
+  --light-text: #222;
+  --dark-bg: #0e0e0e;
+  --dark-text: #f1f1f1;
+  --border-light: #ccc;
+  --border-dark: #333;
+}
+
+/* Section Base */
+.contact-section {
+  padding: 80px 0;
+  background-color: var(--section-bg);
+  color: var(--section-text);
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Card Styling */
+.contact-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
+}
+
+.contact-card h2 {
+  color: var(--accent-color);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Inputs & Textarea */
+.contact-card input,
+.contact-card textarea {
+  width: 100%;
+  border: 1px solid var(--input-border);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  font-size: 15px;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+.contact-card input:focus,
+.contact-card textarea:focus {
+  border-color: var(--accent-color);
+  background-color: rgba(0, 188, 212, 0.05);
+}
+
+/* Button */
+.contact-card button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-color), #00e0ff);
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.contact-card button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Loading Spinner */
+#loading-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success Modal */
+.success-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.success-modal .content {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--section-text);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.success-modal button {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.success-modal button:hover {
+  transform: translateY(-2px);
+}
+
+/* Light Mode */
+body.light-mode .contact-section {
+  --section-bg: var(--light-bg);
+  --section-text: var(--light-text);
+  --card-bg: #fff;
+  --input-border: var(--border-light);
+}
+
+/* Dark Mode */
+body.dark-mode .contact-section {
+  --section-bg: var(--dark-bg);
+  --section-text: var(--dark-text);
+  --card-bg: #1a1a1a;
+  --input-border: var(--border-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 25px;
+  }
+  .contact-card h2 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="contact-card">
+          <h2>Contact Us</h2>
+          <form id="contactForm" method="POST" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <input type="text" name="subject" placeholder="Subject" required />
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit" id="sendBtn">
+              Send Message
+              <div id="loading-spinner"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Success Modal -->
+<div class="success-modal" id="successModal">
+  <div class="content">
+    <h4>✅ Message Sent!</h4>
+    <p>Thank you for reaching out. We’ll get back to you soon.</p>
+    <button onclick="document.getElementById('successModal').style.display='none'">Close</button>
+  </div>
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById("sendBtn");
+  const spinner = document.getElementById("loading-spinner");
+
+  btn.disabled = true;
+  spinner.style.display = "inline-block";
+
+  const formData = new FormData(form);
+  const response = await fetch("{% url 'contact' %}", {
+    method: "POST",
+    body: formData,
+  });
+
+  spinner.style.display = "none";
+  btn.disabled = false;
+
+  try {
+    const data = await response.json();
+    if (data.success) {
+      document.getElementById("successModal").style.display = "flex";
+      form.reset();
+    } else {
+      alert(data.message || "Something went wrong. Please try again.");
+    }
+  } catch {
+    alert("Error submitting the form. Please check your connection.");
+  }
+});
+</script>
+{% endblock %}

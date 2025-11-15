@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block title %}Terms & Conditions | AI & Tech Blog{% endblock %}
+
+{% block meta %}
+<meta name="description" content="Read the official Terms & Conditions of AI & Tech Blog — outlining user rights, content usage, and website policies for transparency and Google AdSense compliance.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="AI & Tech Blog">
+<meta property="og:title" content="Terms & Conditions - AI & Tech Blog">
+<meta property="og:description" content="Learn about the terms, content usage rights, and privacy obligations while using AI & Tech Blog.">
+<meta property="og:type" content="article">
+{% endblock %}
+
+{% block content %}
+<style>
+/* ====== Terms Page Styling ====== */
+.terms-section {
+  padding: 80px 0;
+  background-color: var(--bg-color, #ffffff);
+  color: var(--text-color, #212529);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .terms-section {
+  --bg-color: #0d1117;
+  --text-color: #f1f1f1;
+}
+/* Container */
+.terms-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  line-height: 1.8;
+}
+/* Card */
+.terms-card {
+  background: var(--card-bg, #fff);
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+body.dark-mode .terms-card {
+  --card-bg: #161b22;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+}
+/* Title */
+.terms-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--text-color);
+  position: relative;
+}
+.terms-title::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
+  margin: 12px auto 0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #00c6ff;
+}
+/* Headings */
+.terms-container h2 {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+/* Paragraphs */
+.terms-container p {
+  margin-top: 10px;
+  opacity: 0.9;
+}
+/* List Styles */
+.terms-container ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+.terms-container li {
+  margin-bottom: 8px;
+}
+/* Links */
+.terms-container a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.terms-container a:hover {
+  color: #00c6ff;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .terms-card {
+    padding: 25px;
+  }
+  .terms-title {
+    font-size: 1.8rem;
+  }
+}
+</style>
+
+<section class="terms-section" itemscope itemtype="https://schema.org/Article">
+  <meta itemprop="headline" content="Terms & Conditions - AI & Tech Blog">
+  <meta itemprop="author" content="AI & Tech Blog Team">
+  <meta itemprop="dateModified" content="2025-11-10">
+
+  <div class="terms-container">
+    <article class="terms-card" itemprop="articleBody">
+      <header>
+        <h1 class="terms-title">Terms & Conditions</h1>
+      </header>
+
+      <p>
+        Welcome to <strong>AI & Tech Blog</strong>. By accessing or using our website, 
+        you agree to comply with and be bound by these Terms & Conditions. 
+        Please read them carefully before using our site.
+      </p>
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        By using this website, you agree to follow all applicable laws and 
+        regulations. If you disagree with any part of these terms, please 
+        refrain from using our services.
+      </p>
+
+      <h2>2. Use of Content</h2>
+      <p>
+        All articles, images, and media on this site are protected by copyright 
+        and intellectual property laws. You may share our content for personal, 
+        non-commercial use with proper attribution to <strong>AI & Tech Blog</strong>.
+      </p>
+
+      <h2>3. User Responsibilities</h2>
+      <ul>
+        <li>You agree not to use the website for any unlawful purpose.</li>
+        <li>You must not post harmful, offensive, or misleading content.</li>
+        <li>You are responsible for maintaining the confidentiality of your account information.</li>
+      </ul>
+
+      <h2>4. Limitation of Liability</h2>
+      <p>
+        <strong>AI & Tech Blog</strong> is not liable for any damages arising from the 
+        use or inability to use our website or its content. We make no guarantees 
+        regarding the accuracy or reliability of information presented.
+      </p>
+
+      <h2>5. External Links</h2>
+      <p>
+        Our website may contain links to third-party sites. We are not responsible 
+        for their content, policies, or actions. You should review the terms and 
+        privacy policies of those websites before interacting with them.
+      </p>
+
+      <h2>6. Changes to Terms</h2>
+      <p>
+        We may update or revise these Terms & Conditions at any time without prior notice. 
+        Changes will take effect immediately upon being posted on this page.
+      </p>
+
+      <h2>7. Termination</h2>
+      <p>
+        We reserve the right to suspend or terminate your access to the website 
+        if you violate any of these terms.
+      </p>
+
+      <h2>8. Contact Information</h2>
+      <p>
+        For any questions or concerns regarding these Terms, please contact us at:<br>
+        <strong>Email:</strong> <a href="mailto:support@aitechblog.com">support@aitechblog.com</a>
+      </p>
+
+      <footer>
+        <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+          Last updated: November 10, 2025
+        </p>
+      </footer>
+    </article>
+  </div>
+</section>
+{% endblock %}
